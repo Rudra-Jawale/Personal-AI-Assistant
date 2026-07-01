@@ -11,6 +11,28 @@ from memory_enhancement import MemoryEnhancement
 from presentation_assistant import PresentationAssistant
 
 
+WAKE_PHRASES = ("hello ava", "hi ava", "hey ava", "wake up ava")
+EXIT_PHRASES = ("quit", "exit", "shutdown", "close ava")
+SLEEP_PHRASES = ("stop", "goodbye", "bye", "stop listening")
+
+
+def normalize_command(command):
+    return " ".join(command.lower().strip().split())
+
+
+def is_wake_command(command):
+    return any(phrase in command for phrase in WAKE_PHRASES)
+
+
+def is_exit_command(command):
+    return normalize_command(command) in EXIT_PHRASES
+
+
+def is_sleep_command(command):
+    cmd = normalize_command(command)
+    return cmd in SLEEP_PHRASES
+
+
 class Ava:
     def __init__(self):
         self.recognizer = sr.Recognizer()
@@ -101,8 +123,12 @@ class Ava:
             sentiment, score = self.sentiment_analyzer.analyze(command)
             print(f"Sentiment: {sentiment} (Score: {score})")
             
-            # Process app-related commands
-            if any(word in command for word in ['open', 'start', 'run', 'launch', 'close', 'exit', 'quit', 'terminate']):
+            command = normalize_command(command)
+
+            # Process app-related commands (standalone quit/exit handled in main loop)
+            if any(word in command for word in ['open', 'start', 'run', 'launch', 'close', 'terminate', 'play']):
+                return self.apps.execute_command(command)
+            if command.startswith('exit ') or command.startswith('quit '):
                 return self.apps.execute_command(command)
             
             if any(word in command for word in ['presentation', 'slide', 'pdf']):
@@ -138,11 +164,8 @@ def main():
     ava = Ava()
     print("Initialization complete.")
     
-    # speak("Hello! I am Ava, your AI assistant. How can I help you today?")
-    
-    # active = True
-    # waiting_for_hello = False
-    active = False
+    active = True
+    speak("Hello! I am Ava, your AI assistant. How can I help you today?")
 
     while True:
         try:
@@ -151,24 +174,27 @@ def main():
             if command is None:
                 continue
 
+            command = normalize_command(command)
             print("Recognized:", command)
 
+            # Always allow full shutdown, even while waiting for wake word
+            if is_exit_command(command):
+                speak("Goodbye! Have a great day!")
+                break
+
             if not active:
-                if "hello ava" in command or "hi ava" in command:
+                if is_wake_command(command):
                     active = True
                     speak("Hello. I am listening.")
                 else:
-                    continue
+                    print("Say 'hello Ava' to wake me up, or 'quit' to exit.")
+                continue
 
-            if any(word in command for word in ['goodbye', 'bye', 'stop']):
-                speak("Goodbye for now! I'll be here when you need me again.")
+            if is_sleep_command(command):
+                speak("Goodbye for now! Say hello Ava when you need me again.")
                 active = False
                 continue
-            
-            if any(word in command for word in ["quit", "exit"]):
-                speak("Goodbye! Have a great day!")
-                break
-            
+
             response = ava.process_command(command)
             print("AVA:", response)
             speak(response)
@@ -176,46 +202,7 @@ def main():
         except Exception as e:
             print(e)
     
-    # while True:
-    #     try:
-    #         if not active and not waiting_for_hello:
-    #             speak("Say hello to start a new conversation.")
-    #             waiting_for_hello = True
-            
-    #         command = ava.listen()
-            
-    #         if command:
-    #             # Handle exit commands
-    #             if any(word in command for word in ['goodbye', 'bye', 'exit', 'stop', 'quit']):
-    #                 speak("Goodbye for now! I'll be here when you need me again.")
-    #                 active = False
-    #                 waiting_for_hello = False
-    #                 continue
-                
-    #             # Handle hello when waiting
-    #             if waiting_for_hello and any(word in command for word in ['hello', 'hi', 'hey']):
-    #                 speak("Hello again! How can I assist you?")
-    #                 active = True
-    #                 waiting_for_hello = False
-    #                 continue
-                
-    #             # Process normal commands when active
-    #             if active:
-    #                 response = ava.process_command(command)
-    #                 speak(response)
-                    
-    #                 # Optional: Add a short pause between interactions
-    #                 time.sleep(0.5)
-            
-    #         else:
-    #             # If no command is detected, continue listening
-    #             continue
-
-    #     except Exception as e:
-    #         print(f"Error in main loop: {e}")
-    #         speak("I encountered an error. Please try again.")
-    #         continue
-
+    
 if __name__ == "__main__":
     try:
         main()
