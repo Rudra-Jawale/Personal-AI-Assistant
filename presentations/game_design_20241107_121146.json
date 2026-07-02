@@ -1,0 +1,17 @@
+{
+    "title": "game design",
+    "theme": "professional",
+    "slides": [
+        {
+            "type": "title_slide",
+            "content": "game design",
+            "slide_number": 1
+        },
+        {
+            "type": "bullet points",
+            "content": "what is web design key features of game design extra like that",
+            "slide_number": 2
+        }
+    ],
+    "created_date": "2024-11-07 12:11:11"
+}

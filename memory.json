@@ -1,0 +1,170 @@
+{
+    "sam": {
+        "personal_info": {},
+        "preferences": {},
+        "important_dates": {},
+        "conversation_history": [
+            {
+                "timestamp": "2024-11-06T15:48:22.387883",
+                "user_input": "show me my memory",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-06T15:48:34.718792",
+                "user_input": "let's review my flash cards",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T11:49:26.541513",
+                "user_input": "after effects",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:11:01.066479",
+                "user_input": "create",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:12:00.306066",
+                "user_input": "existing",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:12:50.173409",
+                "user_input": "give it to me",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:15:04.321590",
+                "user_input": "take from google",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:15:37.921586",
+                "user_input": "ads light",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:15:48.381184",
+                "user_input": "sad smile",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:16:26.999935",
+                "user_input": "clash of clans",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:36:30.489991",
+                "user_input": "plantation",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:37:20.688755",
+                "user_input": "aaj ka mausam",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:38:40.450457",
+                "user_input": "game design",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T12:56:52.675454",
+                "user_input": "gate design",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T13:00:11.023716",
+                "user_input": "game design",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T13:00:22.645654",
+                "user_input": "grill design",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T13:03:39.355306",
+                "user_input": "create",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T13:09:18.930621",
+                "user_input": "game present",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2024-11-07T13:11:14.774803",
+                "user_input": "what is your name",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-01T00:43:52.131598",
+                "user_input": "ruk ja ruk ja tera yaar ran",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-01T00:44:09.309996",
+                "user_input": "isko rokate kaise hain",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-01T00:44:18.644331",
+                "user_input": "dewas top",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-01T00:44:24.321082",
+                "user_input": "dewas top",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-01T00:45:11.888207",
+                "user_input": "pagal ho gai",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T02:26:36.430360",
+                "user_input": "ok stop",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T02:26:52.233535",
+                "user_input": "eva exit",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T02:51:45.630264",
+                "user_input": "can you tell me what is the current time",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T02:51:57.172601",
+                "user_input": "please tell me the time",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T02:52:07.596356",
+                "user_input": "notepad",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T23:33:28.502027",
+                "user_input": "what is the capital of france",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T23:33:28.623464",
+                "user_input": "tell me a joke about robots",
+                "ava_response": "Processing your request..."
+            },
+            {
+                "timestamp": "2026-07-02T23:33:49.760402",
+                "user_input": "what is artificial intelligence",
+                "ava_response": "Processing your request..."
+            }
+        ],
+        "learned_facts": {}
+    }
+}

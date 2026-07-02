@@ -1,0 +1,38 @@
+{
+    "intensifiers": [
+        "very",
+        "extremely",
+        "incredibly",
+        "absolutely"
+    ],
+    "diminishers": [
+        "somewhat",
+        "slightly",
+        "barely",
+        "hardly"
+    ],
+    "negators": [
+        "not",
+        "n't",
+        "never",
+        "no"
+    ],
+    "positive_emoji": [
+        "\ud83d\ude0a",
+        "\ud83d\ude03",
+        "\ud83d\udc4d",
+        "\u2764\ufe0f"
+    ],
+    "negative_emoji": [
+        "\ud83d\ude22",
+        "\ud83d\ude21",
+        "\ud83d\udc4e",
+        "\ud83d\ude14"
+    ],
+    "custom_weights": {
+        "love": 2.0,
+        "hate": -2.0,
+        "amazing": 1.5,
+        "terrible": -1.5
+    }
+}
