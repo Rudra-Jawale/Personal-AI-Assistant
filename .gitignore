@@ -1,0 +1,7 @@
+.venv/
+venv/
+.env
+*.log
+*.pyo
+*.pyd
+*.py[cod]

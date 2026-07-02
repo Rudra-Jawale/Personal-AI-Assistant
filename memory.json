@@ -1,5 +1,5 @@
 {
-    "sam": {
+    "Rudra": {
         "personal_info": {},
         "preferences": {},
         "important_dates": {},
@@ -163,6 +163,141 @@
                 "timestamp": "2026-07-02T23:33:49.760402",
                 "user_input": "what is artificial intelligence",
                 "ava_response": "Processing your request..."
+            }
+        ],
+        "learned_facts": {}
+    },
+    "user": {
+        "personal_info": {
+            "name": "tony"
+        },
+        "preferences": {},
+        "important_dates": {},
+        "conversation_history": [
+            {
+                "timestamp": "2026-07-03T03:05:47.906371",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France, sir."
+            },
+            {
+                "timestamp": "2026-07-03T03:05:47.908438",
+                "user_input": "hello",
+                "ava_response": "Hello, sir. Jarvis at your service."
+            },
+            {
+                "timestamp": "2026-07-03T03:05:47.931191",
+                "user_input": "how are you",
+                "ava_response": "All systems operational, sir. Thank you for asking."
+            },
+            {
+                "timestamp": "2026-07-03T03:05:47.954550",
+                "user_input": "what's your name",
+                "ava_response": "I am Jarvis \u2014 Just A Rather Very Intelligent System."
+            },
+            {
+                "timestamp": "2026-07-03T03:05:47.979041",
+                "user_input": "thank you",
+                "ava_response": "My pleasure, sir."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:08.739792",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France, sir."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:08.743043",
+                "user_input": "hello",
+                "ava_response": "Hello, sir. Jarvis at your service."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:08.771521",
+                "user_input": "how are you",
+                "ava_response": "All systems operational, sir. Thank you for asking."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:08.793389",
+                "user_input": "what's your name",
+                "ava_response": "I am Jarvis \u2014 Just A Rather Very Intelligent System."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:08.812559",
+                "user_input": "thank you",
+                "ava_response": "My pleasure, sir."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:09.978531",
+                "user_input": "hello",
+                "ava_response": "Hello, sir. Jarvis at your service."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:15.146278",
+                "user_input": "tell me a joke",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:06:15.160600",
+                "user_input": "what is machine learning",
+                "ava_response": "Good to see you, sir. How can I help?"
+            },
+            {
+                "timestamp": "2026-07-03T03:06:43.183277",
+                "user_input": "what is machine learning",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:41:18.436764",
+                "user_input": "hello what is 2 + 3",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:42:07.123428",
+                "user_input": "notepad",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:42:21.457276",
+                "user_input": "notepad",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:42:42.152878",
+                "user_input": "evacuate",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:42:57.602591",
+                "user_input": "eva stop",
+                "ava_response": "I'm experiencing API rate limits, sir. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-03T03:47:28.841685",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-03T03:47:28.845239",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-03T03:47:28.866000",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-03T03:47:28.889820",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-03T03:47:28.914798",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-03T03:49:43.222023",
+                "user_input": "what is 2 + 2",
+                "ava_response": "I'm hitting API rate limits. Please check your OpenAI billing or try again shortly."
             }
         ],
         "learned_facts": {}

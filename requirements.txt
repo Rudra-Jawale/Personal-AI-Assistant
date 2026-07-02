@@ -1,0 +1,16 @@
+speechrecognition
+pyaudio
+edge-tts
+pygame
+pyttsx3
+openai
+python-dotenv
+nltk
+colorama
+psutil
+spotipy
+wikipedia
+requests
+python-pptx
+mtranslate
+customtkinter
