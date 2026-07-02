@@ -55,4 +55,4 @@ if __name__ == "__main__":
         
         sentiment, score = analyzer.analyze(user_input)
         response = analyzer.get_response(sentiment, score)
-        print(f"Jarvis: {response}")
+        print(f"AVA: {response}")

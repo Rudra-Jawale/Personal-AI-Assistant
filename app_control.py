@@ -199,7 +199,7 @@ class apps:
 if __name__ == "__main__":
     ava = apps()
     
-    speak("Hello! I am Jarvis. How can I assist you?")
+    speak("Hello! I am AVA. How can I assist you?")
     
     while True:
         speak("What would you like me to do?")
