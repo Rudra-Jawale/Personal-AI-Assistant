@@ -61,7 +61,13 @@ class Ava:
         self.recognizer = sr.Recognizer()
         self.recognizer.energy_threshold = 300
         self.recognizer.dynamic_energy_threshold = True
-        self.mic = sr.Microphone()
+        # Text chat must remain available even if PyAudio/a microphone is not
+        # installed. SpeechRecognition raises during Microphone() otherwise.
+        self.mic = None
+        try:
+            self.mic = sr.Microphone()
+        except (AttributeError, OSError) as exc:
+            print(f"Microphone support is unavailable: {exc}")
         self.apps = apps()
         self.web_search = WebSearchAssistant()
         self.summary_module = SummaryModule()
@@ -72,7 +78,7 @@ class Ava:
         self.presentation_assistant = PresentationAssistant()
         self.brain = AvaBrain(memory_system=self.memory)
 
-        if calibrate_mic:
+        if calibrate_mic and self.mic is not None:
             with self.mic as source:
                 print("Calibrating for ambient noise... Please wait.")
                 self.recognizer.adjust_for_ambient_noise(source, duration=2)
@@ -98,6 +104,9 @@ class Ava:
             return default_responses
 
     def listen(self):
+        if self.mic is None:
+            print("Voice input is unavailable. Please type your command instead.")
+            return None
         try:
             with self.mic as source:
                 self.recognizer.adjust_for_ambient_noise(source, duration=0.3)
