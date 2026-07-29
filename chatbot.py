@@ -1,17 +1,19 @@
 import os
 from datetime import datetime
 
-from dotenv import load_dotenv
-from openai import OpenAI, APIConnectionError, APIError, RateLimitError
+import google.genai as genai
+from gemini_config import get_gemini_settings
 
-load_dotenv()
+# genai.configure(api_key=os.getenv("GOOGLE_GEMINI_KEY"))
 
 AVA_SYSTEM_PROMPT = """You are AVA, an advanced personal AI voice assistant.
 You are intelligent, warm, helpful, and confident — like a trusted companion who can do real tasks.
 
 Rules:
 - Keep responses SHORT (1-3 sentences max) because they will be spoken aloud via text-to-speech.
-- Be natural and friendly. You may address the user by name if you know it.
+- Be natural and friendly, with the direct conversational style of a modern chat assistant.
+- Do not use a user's name unless they explicitly use or request it in the current conversation.
+- Answer the request directly. Do not automatically add a follow-up question, offer more help, or repeat a closing phrase after every reply.
 - Be helpful with questions, explanations, advice, jokes, and casual conversation.
 - If you don't know something, say so honestly and offer to search the web.
 - Never use markdown, bullet points, or emojis — plain spoken English only.
@@ -21,9 +23,12 @@ Rules:
 
 class AvaBrain:
     def __init__(self, memory_system=None, model=None):
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.api_key, configured_model = get_gemini_settings()
+        self.model = model or configured_model
+        if self.api_key:
+            self.client = genai.Client(api_key=self.api_key)
+        else:
+            self.client = None
         self.memory = memory_system
         self.session_history = []
         self.max_history = 12
@@ -63,7 +68,7 @@ class AvaBrain:
         if not self.client:
             return (
                 "My AI core isn't configured yet. "
-                "Please add your OPENAI_API_KEY to the .env file."
+                "Please add your GOOGLE_GEMINI_KEY to the .env file."
             )
 
         context = self._build_context()
@@ -73,38 +78,41 @@ class AvaBrain:
         elif sentiment == "positive":
             mood_note = "The user seems in good spirits — match their energy lightly."
 
-        messages = [{"role": "system", "content": AVA_SYSTEM_PROMPT}]
+        prompt_parts = [AVA_SYSTEM_PROMPT]
         if context:
-            messages.append({"role": "system", "content": f"Context:\n{context}"})
+            prompt_parts.append(f"Context:\n{context}")
         if mood_note:
-            messages.append({"role": "system", "content": mood_note})
-
-        messages.extend(self.session_history)
-        messages.append({"role": "user", "content": user_message})
+            prompt_parts.append(mood_note)
+        prompt_parts.append(f"User: {user_message}")
+        prompt = "\n\n".join(prompt_parts)
 
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=messages,
-                max_tokens=200,
-                temperature=0.7,
+            chat = self.client.chats.create(model=self.model)
+            response = chat.send_message(
+                prompt,
+                config={"max_output_tokens": 200, "temperature": 0.7},
             )
-            reply = response.choices[0].message.content.strip()
+            reply = getattr(response, "text", "") or ""
+            reply = reply.strip()
+            if not reply and hasattr(response, "json"):
+                reply = response.json().get("text", "").strip()
 
-            self.session_history.append({"role": "user", "content": user_message})
-            self.session_history.append({"role": "assistant", "content": reply})
-            self._trim_history()
-
-            return reply
-
-        except RateLimitError:
-            return "I'm hitting API rate limits. Please check your OpenAI billing or try again shortly."
-        except APIConnectionError:
-            return "I can't connect to my AI service right now. Please check your internet connection."
-        except APIError as exc:
-            return f"I encountered an API error: {exc.message if hasattr(exc, 'message') else str(exc)}"
+            if reply:
+                self.session_history.append({"role": "user", "content": user_message})
+                self.session_history.append({"role": "assistant", "content": reply})
+                self._trim_history()
+                return reply
+            return "I couldn't generate a response from Gemini."
         except Exception as exc:
             return f"Something went wrong: {exc}"
+        # except RateLimitError:
+        #     return "I'm hitting API rate limits. Please check your OpenAI billing or try again shortly."
+        # except APIConnectionError:
+        #     return "I can't connect to my AI service right now. Please check your internet connection."
+        # except APIError as exc:
+        #     return f"I encountered an API error: {exc.message if hasattr(exc, 'message') else str(exc)}"
+        # except Exception as exc:
+        #     return f"Something went wrong: {exc}"
 
     def clear_session(self):
         self.session_history = []
