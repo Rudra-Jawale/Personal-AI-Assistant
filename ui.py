@@ -371,6 +371,12 @@ class AvaUI(ctk.CTk):
     def _toggle_listen(self):
         if self.processing or self.listening or not self.ava:
             return
+        if not self.ava.voice.available:
+            self._add_message(
+                "ava",
+                "Voice input is unavailable on this computer. Please type your message instead.",
+            )
+            return
         self.listening = True
         self.mic_btn.configure(text="...", fg_color=COLORS["danger"])
         self.ui_queue.put(("status", "● Listening...", COLORS["accent"]))
