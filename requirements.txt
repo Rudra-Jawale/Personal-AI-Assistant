@@ -1,7 +1,9 @@
 speechrecognition
-pyaudio
+pyaudio; python_version < "3.14"
+sounddevice
+numpy
 edge-tts
-pygame
+pygame; python_version < "3.14"
 pyttsx3
 openai
 python-dotenv
@@ -14,3 +16,4 @@ requests
 python-pptx
 mtranslate
 customtkinter
+google-genai
