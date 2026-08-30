@@ -1,12 +1,12 @@
 import json
 import re
-import speech_recognition as sr
 from datetime import datetime
 
 from dotenv import load_dotenv
 
 from speak import speak
 from app_control import apps
+from voice_input import VoiceListener
 from web_search import WebSearchAssistant
 from search import SummaryModule
 from sentiment_analysis import SentimentAnalyzer
@@ -58,17 +58,8 @@ def ava_greeting():
 
 class Ava:
     def __init__(self, calibrate_mic=True):
-        self.recognizer = sr.Recognizer()
-        self.recognizer.energy_threshold = 300
-        self.recognizer.dynamic_energy_threshold = True
-        # Text chat must remain available even if PyAudio/a microphone is not
-        # installed. SpeechRecognition raises during Microphone() otherwise.
-        self.mic = None
-        try:
-            self.mic = sr.Microphone()
-        except (AttributeError, OSError) as exc:
-            print(f"Microphone support is unavailable: {exc}")
-        self.apps = apps()
+        self.voice = VoiceListener(calibrate=calibrate_mic)
+        self.apps = apps(voice_listener=self.voice)
         self.web_search = WebSearchAssistant()
         self.summary_module = SummaryModule()
         self.sentiment_analyzer = SentimentAnalyzer()
@@ -78,10 +69,10 @@ class Ava:
         self.presentation_assistant = PresentationAssistant()
         self.brain = AvaBrain(memory_system=self.memory)
 
-        if calibrate_mic and self.mic is not None:
-            with self.mic as source:
-                print("Calibrating for ambient noise... Please wait.")
-                self.recognizer.adjust_for_ambient_noise(source, duration=2)
+    @property
+    def mic(self):
+        """Compatibility flag used by the UI to check voice availability."""
+        return self.voice if self.voice.available else None
 
     def load_responses(self):
         try:
@@ -104,31 +95,7 @@ class Ava:
             return default_responses
 
     def listen(self):
-        if self.mic is None:
-            print("Voice input is unavailable. Please type your command instead.")
-            return None
-        try:
-            with self.mic as source:
-                self.recognizer.adjust_for_ambient_noise(source, duration=0.3)
-                print("\nListening...")
-                self.recognizer.pause_threshold = 1
-                audio = self.recognizer.listen(source, timeout=5, phrase_time_limit=10)
-                print("Processing speech...")
-                text = self.recognizer.recognize_google(audio)
-                print(f"You said: {text}")
-                return text.lower()
-        except sr.WaitTimeoutError:
-            print("Listening timed out. Please try again.")
-            return None
-        except sr.UnknownValueError:
-            print("Could not understand audio. Please try again.")
-            return None
-        except sr.RequestError as e:
-            print(f"Could not request results; {e}")
-            return None
-        except Exception as e:
-            print(f"Error during listening: {e}")
-            return None
+        return self.voice.listen()
 
     def get_personal_response(self, command):
         if command in self.responses:
