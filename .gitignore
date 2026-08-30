@@ -5,3 +5,4 @@ venv/
 *.pyo
 *.pyd
 *.py[cod]
+nltk_data/
