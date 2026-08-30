@@ -32,6 +32,7 @@ class AvaBrain:
         self.memory = memory_system
         self.session_history = []
         self.max_history = 12
+        self._chat = None
 
     def _build_context(self):
         parts = []
@@ -87,8 +88,10 @@ class AvaBrain:
         prompt = "\n\n".join(prompt_parts)
 
         try:
-            chat = self.client.chats.create(model=self.model)
-            response = chat.send_message(
+            if self._chat is None:
+                self._chat = self.client.chats.create(model=self.model)
+
+            response = self._chat.send_message(
                 prompt,
                 config={"max_output_tokens": 200, "temperature": 0.7},
             )
@@ -116,3 +119,4 @@ class AvaBrain:
 
     def clear_session(self):
         self.session_history = []
+        self._chat = None
