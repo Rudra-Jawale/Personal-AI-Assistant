@@ -43,6 +43,12 @@ class MemorySystem:
     def get_personal_info(self, key):
         return self.memory["personal_info"].get(key)
 
+    def remove_personal_info(self, key):
+        """Remove a saved personal detail, such as a name the user no longer wants used."""
+        if key in self.memory["personal_info"]:
+            del self.memory["personal_info"][key]
+            self.save_memory()
+
     def add_preference(self, category, preference):
         if category not in self.memory["preferences"]:
             self.memory["preferences"][category] = []

@@ -298,6 +298,291 @@
                 "timestamp": "2026-07-03T03:49:43.222023",
                 "user_input": "what is 2 + 2",
                 "ava_response": "I'm hitting API rate limits. Please check your OpenAI billing or try again shortly."
+            },
+            {
+                "timestamp": "2026-07-15T01:31:59.232060",
+                "user_input": "what is 2 + 2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T01:33:29.456342",
+                "user_input": "what is 2 + 2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T01:33:56.519214",
+                "user_input": "what is the date",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T02:06:16.719731",
+                "user_input": "2+2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T02:09:58.386937",
+                "user_input": "2+2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T02:14:17.587890",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-15T02:14:17.592191",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-15T02:14:17.605436",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-15T02:14:17.617997",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-15T02:14:17.631768",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-15T02:14:54.852421",
+                "user_input": "2+2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T02:15:05.008986",
+                "user_input": "python tutorials",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-15T02:54:28.155309",
+                "user_input": "2+2",
+                "ava_response": "Something went wrong: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}"
+            },
+            {
+                "timestamp": "2026-07-29T17:39:20.209574",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:39:20.215088",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:39:20.243320",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:39:20.280971",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:39:20.311159",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T17:39:58.656629",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:39:58.666136",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:39:58.700814",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:39:58.733446",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:39:58.761590",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T17:40:59.409699",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:40:59.415704",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:40:59.451583",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:40:59.483444",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:40:59.513461",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T17:50:35.962718",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:50:35.966730",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:50:35.982521",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:50:35.997847",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:50:36.013420",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T17:51:18.143094",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:51:18.146877",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:51:18.158700",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:51:18.171341",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:51:18.184490",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T17:56:04.804306",
+                "user_input": "2 + 2",
+                "ava_response": "The answer is 4."
+            },
+            {
+                "timestamp": "2026-07-29T17:56:09.377327",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-07-29T17:56:09.381317",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-07-29T17:56:09.399282",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-07-29T17:56:09.413346",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-07-29T17:56:09.426274",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-07-29T19:02:57.301240",
+                "user_input": "2+2",
+                "ava_response": "Two plus two equals four."
+            },
+            {
+                "timestamp": "2026-07-29T19:03:06.739450",
+                "user_input": "just give me number",
+                "ava_response": "Four."
+            },
+            {
+                "timestamp": "2026-07-29T19:03:17.101407",
+                "user_input": "in numerical dont spell it",
+                "ava_response": "4"
+            },
+            {
+                "timestamp": "2026-07-29T19:03:46.794467",
+                "user_input": "allways give all number value in its numerical instead of speeling it",
+                "ava_response": "Understood. I will use numerical digits for all values from now on."
+            },
+            {
+                "timestamp": "2026-07-29T19:04:02.397296",
+                "user_input": "who is the current prime minister of india",
+                "ava_response": "The current Prime Minister of India is Narendra Modi."
+            },
+            {
+                "timestamp": "2026-07-29T19:04:20.433035",
+                "user_input": "what is authentication in backend",
+                "ava_response": "Authentication is the process of verifying a user's identity to ensure they are who they claim to be before granting access to a system. It typically involves checking credentials like passwords, tokens, or biometric data against stored records."
+            },
+            {
+                "timestamp": "2026-08-31T00:52:36.896366",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-08-31T00:52:36.903708",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-08-31T00:52:36.929291",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-08-31T00:52:36.957535",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-08-31T00:52:36.989701",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
+            },
+            {
+                "timestamp": "2026-08-31T00:53:17.349732",
+                "user_input": "what is 5 times 3",
+                "ava_response": "Five times three is fifteen."
+            },
+            {
+                "timestamp": "2026-08-31T00:54:59.423574",
+                "user_input": "what is 2 + 2",
+                "ava_response": "Two plus two is four."
             }
         ],
         "learned_facts": {}
