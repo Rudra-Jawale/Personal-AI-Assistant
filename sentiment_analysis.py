@@ -1,12 +1,27 @@
 # sentiment_analysis.py
 
+from pathlib import Path
+
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 import colorama
 from colorama import Fore, Style
 
-# Download necessary NLTK data (run this once)
-nltk.download('vader_lexicon', quiet=True)
+# Keep downloaded NLTK data inside this project. This avoids failures caused by
+# a stale or inaccessible global NLTK folder in the user's profile.
+NLTK_DATA_DIR = Path(__file__).with_name("nltk_data")
+NLTK_DATA_DIR.mkdir(exist_ok=True)
+nltk.data.path.insert(0, str(NLTK_DATA_DIR))
+
+
+def ensure_vader_lexicon():
+    try:
+        nltk.data.find("sentiment/vader_lexicon.zip")
+    except LookupError:
+        nltk.download("vader_lexicon", download_dir=str(NLTK_DATA_DIR), quiet=True)
+
+
+ensure_vader_lexicon()
 
 class SentimentAnalyzer:
     def __init__(self):

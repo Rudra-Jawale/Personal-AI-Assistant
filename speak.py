@@ -1,92 +1,57 @@
 import asyncio
 import os
+import re
 import subprocess
 import sys
+import tempfile
+
 import edge_tts
 import pyttsx3
-import pygame
-import tempfile
-# try:
-#     import winsound
-# except ImportError:  # non-Windows environments
-#     winsound = None
 
-# Text-to-speech configuration
-VOICE = "en-US-MichelleNeural"
+try:
+    import pygame
+except ImportError:
+    pygame = None
 
-pygame.mixer.init()
+# Natural voice; AVA is pronounced "Ay-va" not "Ee-va"
+VOICE = "en-US-AvaNeural"
+AVA_PRONUNCIATION = "Ayva"
+
+
+def prepare_speech_text(text):
+    """Ensure AVA is spoken as Ay-va while keeping display text unchanged elsewhere."""
+    return re.sub(r"\bAVA\b", AVA_PRONUNCIATION, text, flags=re.IGNORECASE)
+
 
 async def generate_speech(text, filename):
-    communicate = edge_tts.Communicate(text, VOICE)
+    communicate = edge_tts.Communicate(prepare_speech_text(text), VOICE)
     await communicate.save(filename)
 
 
-# def speak_text(text):
-#     engine = pyttsx3.init()
-#     engine.say(text)
-#     engine.runAndWait()
-
-
-# def play_audio(file_path):
-#     if not os.path.exists(file_path):
-#         print(f"Audio file not found: {file_path}")
-#         return
-
-#     file_path = os.path.abspath(file_path)
-#     extension = os.path.splitext(file_path)[1].lower()
-
-#     try:
-#         if extension == ".wav" and winsound is not None:
-#             winsound.PlaySound(file_path, winsound.SND_FILENAME)
-#             return
-
-#         if sys.platform.startswith("win"):
-#             try:
-#                 os.startfile(file_path)  # type: ignore[attr-defined]
-#                 return
-#             except Exception as exc:
-#                 print(f"Fallback audio playback failed: {exc}")
-#                 return
-
-#         print(f"No compatible audio player available for {file_path}")
-#     except Exception as exc:
-#         print(f"Error during audio playback: {exc}")
-
-
-# async def amain(TEXT, output_file) -> None:
-#     try:
-#         cm_txt = edge_tts.Communicate(TEXT, VOICE)
-#         await cm_txt.save(output_file)
-#         play_audio(output_file)
-#     except Exception as exc:
-#         print(f"Error in amain: {exc}")
-#     finally:
-#         remove_file(output_file)
-
-
-# def remove_file(file_path):
-#     if not file_path or not os.path.exists(file_path):
-#         return
-
-#     max_attempts = 3
-#     attempts = 0
-#     while attempts < max_attempts:
-#         try:
-#             os.remove(file_path)
-#             break
-#         except Exception as exc:
-#             print(f"Error while removing file: {exc}")
-#             attempts += 1
-
-
-# def speak(TEXT, output_file=None):
-#     if output_file is None:
-#         output_file = os.path.join(os.getcwd(), "speaks.mp3")
-#     asyncio.run(amain(TEXT, output_file))
-def speak(text):
+if pygame is not None:
     try:
-        temp_file = os.path.join(tempfile.gettempdir(), "ava_voice.mp3")
+        pygame.mixer.init()
+    except pygame.error:
+        pygame = None
 
+
+def speak_with_pyttsx3(text):
+    engine = pyttsx3.init()
+    engine.setProperty("rate", 175)
+    engine.say(prepare_speech_text(text))
+    engine.runAndWait()
+
+
+def speak(text):
+    if not text:
+        return
+
+    try:
+        if pygame is None:
+            speak_with_pyttsx3(text)
+            return
+
+        temp_file = os.path.join(tempfile.gettempdir(), "ava_voice.mp3")
         asyncio.run(generate_speech(text, temp_file))
 
         pygame.mixer.music.load(temp_file)
@@ -100,5 +65,20 @@ def speak(text):
         if os.path.exists(temp_file):
             os.remove(temp_file)
 
-    except Exception as e:
-        print("Speech Error:", e)
+    except Exception as exc:
+        print("Speech Error:", exc)
+        try:
+            speak_with_pyttsx3(text)
+        except Exception:
+            if sys.platform.startswith("win"):
+                subprocess.run(
+                    [
+                        "powershell",
+                        "-NoProfile",
+                        "-Command",
+                        f'Add-Type -AssemblyName System.Speech; '
+                        f'$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; '
+                        f'$s.Speak("{prepare_speech_text(text).replace(chr(34), chr(39))}")',
+                    ],
+                    check=False,
+                )

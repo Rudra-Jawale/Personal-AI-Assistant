@@ -2,20 +2,19 @@ import os
 
 import wikipedia
 from colorama import Fore, init
-from dotenv import load_dotenv
-from openai import OpenAI, APIConnectionError, APIError, RateLimitError
+import google.genai as genai
+from gemini_config import get_gemini_settings
 
 from web_search import WebSearchAssistant
 from sentiment_analysis import SentimentAnalyzer
 
-load_dotenv()
 init(autoreset=True)
 
 
 class SummaryModule:
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=api_key) if api_key else None
+        self.api_key, self.model = get_gemini_settings()
+        self.client = genai.Client(api_key=self.api_key) if self.api_key else None
         self.web_search = WebSearchAssistant()
         self.sentiment_analyzer = SentimentAnalyzer()
 
@@ -26,24 +25,19 @@ class SummaryModule:
         except Exception:
             return None
 
-    def get_chatgpt_summary(self, query):
+    def get_gemini_summary(self, query):
         if not self.client:
             return None
         try:
-            response = self.client.chat.completions.create(
-                model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "Provide a clear, concise spoken summary in 2-3 sentences. No markdown.",
-                    },
-                    {"role": "user", "content": f"Summarize: {query}"},
-                ],
-                max_tokens=300,
+            chat = self.client.chats.create(model=self.model)
+            response = chat.send_message(
+                f"Provide a clear, concise spoken summary in 2-3 sentences. No markdown.\n\nSummarize: {query}",
+                config={"max_output_tokens": 300, "temperature": 0.3},
             )
-            return {"source": "ChatGPT", "content": response.choices[0].message.content.strip()}
-        except (RateLimitError, APIConnectionError, APIError) as exc:
-            print(Fore.RED + f"ChatGPT Error: {exc}")
+            reply = getattr(response, "text", "") or ""
+            return {"source": "Gemini", "content": reply.strip()}
+        except Exception as exc:
+            print(Fore.RED + f"Gemini Error: {exc}")
             return None
 
     def generate_summary(self, query):
@@ -54,10 +48,10 @@ class SummaryModule:
             print(Fore.GREEN + "Found Wikipedia summary")
             return wiki_result
 
-        chatgpt_result = self.get_chatgpt_summary(query)
-        if chatgpt_result:
-            print(Fore.GREEN + "Generated ChatGPT summary")
-            return chatgpt_result
+        gemini_result = self.get_gemini_summary(query)
+        if gemini_result:
+            print(Fore.GREEN + "Generated Gemini summary")
+            return gemini_result
 
         try:
             web_result = self.web_search.search_on_web(query)
