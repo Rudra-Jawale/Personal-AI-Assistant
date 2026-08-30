@@ -1,35 +1,24 @@
 import os
 import json
 import requests
-import speech_recognition as sr
 from datetime import datetime
-from dotenv import load_dotenv
+import google.genai as genai
+from gemini_config import get_gemini_settings
 from pptx import Presentation
 from pptx.util import Inches, Pt
-from openai import OpenAI, APIError, RateLimitError, APIConnectionError, OpenAIError
 
 from speak import speak
-
-load_dotenv()
-
-try:
-    import pyaudio  # type: ignore
-except ImportError:  # pragma: no cover
-    pyaudio = None
+from voice_input import VoiceListener
 
 class PresentationAssistant:
     def __init__(self):
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not self.openai_api_key:
-            print("Warning: OPENAI_API_KEY not set. Presentation features will be limited.")
-        self.client = OpenAI(api_key=self.openai_api_key) if self.openai_api_key else None
-        self.recognizer = sr.Recognizer()
-        self.mic = None
-        if pyaudio is not None:
-            try:
-                self.mic = sr.Microphone()
-            except Exception as exc:
-                print(f"Microphone initialization unavailable: {exc}")
+        self.api_key, self.model = get_gemini_settings()
+        if not self.api_key:
+            print("Warning: GOOGLE_GEMINI_KEY not set. Presentation features will be limited.")
+            self.client = None
+        else:
+            self.client = genai.Client(api_key=self.api_key)
+        self.voice = VoiceListener(calibrate=False)
         self.presentations_folder = "presentations"
         self.current_presentation = None
 
@@ -37,54 +26,22 @@ class PresentationAssistant:
             os.makedirs(self.presentations_folder)
 
     def listen(self):
-        if self.mic is None:
+        if not self.voice.available:
             print("Microphone support is unavailable. Please type your command instead.")
             return input("Your command: ").strip().lower()
-
-        try:
-            with self.mic as source:
-                print("Listening...")
-                self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                audio = self.recognizer.listen(source)
-            text = self.recognizer.recognize_google(audio)
-            print(f"You said: {text}")
-            return text.lower()
-        except sr.UnknownValueError:
-            print("Sorry, I didn't catch that.")
-            return None
-        except sr.RequestError:
-            print("Sorry, there was an error with the speech recognition service.")
-            return None
-        except Exception as exc:
-            print(f"Speech recognition error: {exc}")
-            return None
+        return self.voice.listen()
 
     def generate_content(self, title):
         if not self.client:
             return f"Presentation outline for {title}: Introduction, Key Points, Analysis, Conclusion, Summary."
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a helpful presentation content creator."},
-                    {"role": "user", "content": f"Create an outline for a presentation titled '{title}'. Include 5 main points with brief descriptions."}
-                ],
-                max_tokens=500,
-                temperature=0.7,
+            chat = self.client.chats.create(model=self.model)
+            response = chat.send_message(
+                f"Create an outline for a presentation titled '{title}'. Include 5 main points with brief descriptions.",
+                config={"max_output_tokens": 500, "temperature": 0.7},
             )
-            return response.choices[0].message.content.strip()
-        except RateLimitError as e:
-            error_message = "Rate limit exceeded or quota exceeded. Please check your OpenAI plan and billing details."
-            print(error_message)
-            return error_message
-        except APIConnectionError as e:
-            error_message = "Error connecting to OpenAI API. Please check your internet connection."
-            print(error_message)
-            return error_message
-        except APIError as e:
-            error_message = f"OpenAI API error: {str(e)}"
-            print(error_message)
-            return error_message
+            result = getattr(response, "text", "") or ""
+            return result.strip() or f"Presentation outline for {title}: Introduction, Key Points, Analysis, Conclusion, Summary."
         except Exception as e:
             error_message = f"Unexpected error: {str(e)}"
             print(error_message)

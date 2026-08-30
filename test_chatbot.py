@@ -10,12 +10,15 @@ from main import (
     is_wake_command,
     is_action_command,
 )
+from search import SummaryModule
 
 
 def make_ava():
-    with patch("main.sr.Microphone"), patch("main.sr.Recognizer") as mock_recognizer:
-        mock_recognizer.return_value.adjust_for_ambient_noise = MagicMock()
+    with patch("main.VoiceListener") as mock_voice:
+        mock_voice.return_value.available = True
+        mock_voice.return_value.listen = MagicMock(return_value=None)
         ava = Ava(calibrate_mic=False)
+        ava.voice = mock_voice.return_value
         ava.brain = MagicMock(spec=AvaBrain)
         ava.brain.chat.return_value = "Paris is the capital of France."
         return ava
@@ -66,6 +69,13 @@ class ChatbotTests(unittest.TestCase):
         sentiment, score = self.ava.sentiment_analyzer.analyze("I am very happy today")
         self.assertEqual(sentiment, "positive")
         self.assertGreater(score, 0)
+
+    def test_summary_module_uses_supported_gemini_default(self):
+        with patch.dict("os.environ", {"GOOGLE_GEMINI_KEY": "dummy-key", "Gemini_MODEL": "gemini-pro"}, clear=False):
+            with patch("search.genai.Client") as mock_client:
+                module = SummaryModule()
+                self.assertEqual(module.model, "gemini-3.1-flash-lite")
+                mock_client.assert_called_once_with(api_key="dummy-key")
 
 
 if __name__ == "__main__":
