@@ -9,6 +9,7 @@ from main import (
     is_sleep_command,
     is_wake_command,
     is_action_command,
+    strip_wake_phrase,
 )
 from search import SummaryModule
 
@@ -63,6 +64,8 @@ class ChatbotTests(unittest.TestCase):
         self.assertTrue(is_exit_command("quit"))
         self.assertFalse(is_exit_command("exit chrome"))
         self.assertTrue(is_wake_command("hey ava"))
+        self.assertTrue(is_wake_command("hey eva"))
+        self.assertEqual(strip_wake_phrase("hey ava open chrome"), "open chrome")
         self.assertTrue(is_action_command("open notepad"))
 
     def test_sentiment_module_runs(self):
