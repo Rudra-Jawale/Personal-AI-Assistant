@@ -583,6 +583,31 @@
                 "timestamp": "2026-08-31T00:54:59.423574",
                 "user_input": "what is 2 + 2",
                 "ava_response": "Two plus two is four."
+            },
+            {
+                "timestamp": "2026-10-02T13:40:37.000154",
+                "user_input": "what is the capital of france",
+                "ava_response": "Paris is the capital of France."
+            },
+            {
+                "timestamp": "2026-10-02T13:40:37.003704",
+                "user_input": "hello",
+                "ava_response": "Hello! I'm AVA. How can I help you?"
+            },
+            {
+                "timestamp": "2026-10-02T13:40:37.014762",
+                "user_input": "how are you",
+                "ava_response": "I'm functioning well, thank you for asking!"
+            },
+            {
+                "timestamp": "2026-10-02T13:40:37.025723",
+                "user_input": "what's your name",
+                "ava_response": "My name is AVA \u2014 Advanced Virtual Assistant."
+            },
+            {
+                "timestamp": "2026-10-02T13:40:37.041344",
+                "user_input": "thank you",
+                "ava_response": "You're welcome! Let me know if you need anything else."
             }
         ],
         "learned_facts": {}

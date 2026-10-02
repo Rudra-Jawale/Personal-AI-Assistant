@@ -17,3 +17,5 @@ python-pptx
 mtranslate
 customtkinter
 google-genai
+pystray
+pillow
