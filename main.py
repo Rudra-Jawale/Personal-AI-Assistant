@@ -17,7 +17,20 @@ from chatbot import AvaBrain
 
 load_dotenv()
 
-WAKE_PHRASES = ("hello ava", "hi ava", "hey ava", "wake up ava")
+WAKE_PHRASES = (
+    "hello ava",
+    "hi ava",
+    "hey ava",
+    "okay ava",
+    "ok ava",
+    "wake up ava",
+    "hello eva",
+    "hi eva",
+    "hey eva",
+    "okay eva",
+    "ok eva",
+)
+STANDALONE_WAKE = ("ava", "eva", "ayva")
 EXIT_PHRASES = ("quit", "exit", "shutdown", "close ava")
 SLEEP_PHRASES = ("stop", "goodbye", "bye", "stop listening", "go to sleep")
 ACTION_WORDS = ("open", "start", "run", "launch", "close", "terminate", "play")
@@ -28,7 +41,20 @@ def normalize_command(command):
 
 
 def is_wake_command(command):
-    return any(phrase in command for phrase in WAKE_PHRASES)
+    text = normalize_command(command)
+    if text in STANDALONE_WAKE:
+        return True
+    return any(phrase in text for phrase in WAKE_PHRASES)
+
+
+def strip_wake_phrase(command):
+    text = normalize_command(command)
+    if text in STANDALONE_WAKE:
+        return ""
+    for phrase in sorted(WAKE_PHRASES, key=len, reverse=True):
+        if phrase in text:
+            return (text.replace(phrase, " ", 1)).strip(" ,.")
+    return text
 
 
 def is_exit_command(command):
@@ -94,8 +120,8 @@ class Ava:
                 json.dump(default_responses, f, indent=4)
             return default_responses
 
-    def listen(self):
-        return self.voice.listen()
+    def listen(self, timeout=6, phrase_time_limit=12):
+        return self.voice.listen(timeout=timeout, phrase_time_limit=phrase_time_limit)
 
     def get_personal_response(self, command):
         if command in self.responses:
